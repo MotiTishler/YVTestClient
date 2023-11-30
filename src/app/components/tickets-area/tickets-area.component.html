@@ -1,0 +1,55 @@
+<h2>פרטי הסיור</h2>
+
+<div class="in-row">
+    <h3>מספר מבקרים: </h3>
+    <button mat-icon-button (click)="this.amount = this.amount+1"><mat-icon>add_circle_outline</mat-icon></button>
+    <h3>{{ this.amount }}</h3>
+    <button mat-icon-button (click)="this.amount = (this.amount>1)? this.amount-1:1"><mat-icon>remove_circle_outline</mat-icon></button>
+</div> 
+
+<h3>תאריך: <span class="date"> {{ this.curDate }}</span></h3>
+
+<div>
+    <h3>שעת הכניסה </h3>
+    <mat-tab-group>
+        <mat-tab label="בוקר">
+                <div class="in-row">
+                    <div *ngFor="let h of this.ticketsService.morning">
+                        <app-luz-item
+                            *ngFor="let i of this.ticketsService.getTimesForHour(h)"
+                            [item] = i
+                        ></app-luz-item>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="צהרים">
+                <div class="in-row">
+                    <div *ngFor="let h of this.ticketsService.noon">
+                        <app-luz-item
+                            *ngFor="let i of this.ticketsService.getTimesForHour(h)"
+                            [item] = i
+                        ></app-luz-item>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="אחרי הצהרים">
+                <div class="in-row">
+                    <div *ngFor="let h of this.ticketsService.afternoon">
+                        <app-luz-item
+                            *ngFor="let i of this.ticketsService.getTimesForHour(h)"
+                            [item] = i
+                        ></app-luz-item>
+                    </div>
+                </div>
+            </mat-tab>
+    </mat-tab-group>
+</div>
+<div class="buttons-area">
+    <button mat-flat-button
+            (click)="this.ticketsService.clearCurrentTime();"
+    >ביטול</button>
+    <button mat-flat-button 
+            color="primary"
+            (click)="orderTickets()"
+    >המשך ></button>
+</div>
